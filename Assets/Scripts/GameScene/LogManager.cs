@@ -22,16 +22,18 @@ public class LogManager : MonoBehaviour {
 
         MoveLog( );
 
-        if( !Input.GetMouseButton( 0 ) ) {
+        if( !Input.GetMouseButtonUp( 0 ) ) {
             return;
         }
         if( !Physics.Raycast( ray, out hit ) ) {
             return;
         }
-        if ( hit.transform.gameObject.name != "Log" ) {
-            return;
+        if ( hit.transform.gameObject.name == "Log" ) {
+            log_open = true;
         }
-        log_open = true;
+        if( hit.transform.gameObject.name == "CloseButton" ) {
+            log_open = false;
+        }
     }
 
     void MoveLog( ) {

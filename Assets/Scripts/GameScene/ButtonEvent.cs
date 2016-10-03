@@ -10,10 +10,6 @@ public class ButtonEvent : MonoBehaviour {
         log = GameObject.Find( "Log" ).gameObject;
     }
 
-    public void CloseLog( ) {
-        log.GetComponent<LogManager>( ).setLogOpen( false );
-    }
-
     public void NextDay( ) {
         if ( log.GetComponent<LogManager>( ).isLogOpened( ) ) {
             return;
