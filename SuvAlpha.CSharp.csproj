@@ -69,13 +69,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CreditScene\CreditManager.cs" />
-    <Compile Include="Assets\Scripts\GameScene\ButtonEvent.cs" />
-    <Compile Include="Assets\Scripts\GameScene\GameManager.cs" />
-    <Compile Include="Assets\Scripts\GameScene\LogManager.cs" />
-    <Compile Include="Assets\Scripts\GameScene\SupplyUIManager.cs" />
-    <Compile Include="Assets\Scripts\MovieScene\SkipButton.cs" />
-    <Compile Include="Assets\Scripts\TitleScene\StartButton.cs" />
+    <Compile Include="Assets\2.Scripts\1.TitleScene\StartButton.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\ButtonEvent.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\EventManager.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\GameManager.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\LogManager.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\LogTextManager.cs" />
+    <Compile Include="Assets\2.Scripts\3.MovieScenes\SkipButton.cs" />
+    <Compile Include="Assets\2.Scripts\4.CreditScene\CreditManager.cs" />
+    <Compile Include="Assets\2.Scripts\5.GameOverScene\GameOverManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

@@ -5,10 +5,12 @@ using UnityEngine.UI;
 public class LogManager : MonoBehaviour {
     private Vector3 log_pos;
     private bool log_open;
+    private int log_page;
 
     // Use this for initialization
-    void Start ( ) {
+    void Start( ) {
         log_open = false;
+        log_page = 1;
     }
 	
 	// Update is called once per frame
@@ -22,17 +24,27 @@ public class LogManager : MonoBehaviour {
 
         MoveLog( );
 
-        if( !Input.GetMouseButtonUp( 0 ) ) {
+        if ( !Input.GetMouseButtonUp( 0 ) ) {
             return;
         }
-        if( !Physics.Raycast( ray, out hit ) ) {
+        if ( !Physics.Raycast( ray, out hit ) ) {
             return;
         }
+
         if ( hit.transform.gameObject.name == "Log" ) {
             log_open = true;
         }
-        if( hit.transform.gameObject.name == "CloseButton" ) {
+
+        if ( hit.transform.gameObject.name == "CloseButton" ) {
             log_open = false;
+        }
+
+        if ( hit.transform.gameObject.name == "NextPageButton" ) {
+            log_page = 2;
+        }
+
+        if ( hit.transform.gameObject.name == "BeforePageButton" ) {
+            log_page = 1;
         }
     }
 
@@ -62,5 +74,9 @@ public class LogManager : MonoBehaviour {
 
     public void setLogOpen( bool flag ) {
         log_open = flag;
+    }
+
+    public int getLogPage( ) {
+        return log_page;
     }
 }
