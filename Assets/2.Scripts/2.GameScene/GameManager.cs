@@ -7,26 +7,59 @@ public enum LAYER {
     OUTSIDE,
 }
 
+public struct RESOURCES {
+    public int fuels;
+    public int foods;
+    public int water;
+    public int guns;
+    public int medical_kits;
+    public int radios;
+    public int repair_tools;
+}
+
 public class GameManager : MonoBehaviour {
-    
-    private int _fuels;
-    private int _foods;
-    private int _bullets;
-    private int _days;
+    private int days;
+    private GameObject inside_layer;
+    private GameObject outside_layer;
+    private RESOURCES resources;
     private LAYER _layer;
 
-    // Use this for initialization
     void Start( ) {
-        _days    = 1;
-        _fuels   = 100;
-        _foods   = 100;
-        _bullets = 100;
+        init( );
+
         _layer = LAYER.OUTSIDE;
+
+        inside_layer = GameObject.Find( "InsideLayer" ).gameObject;
+        outside_layer = GameObject.Find( "OutsideLayer" ).gameObject;
     }
 
-    // Update is called once per frame
     void Update( ) {
+        updateLayer( );
         changeScene( );
+    }
+
+    void updateLayer( ) {
+        switch ( _layer ) {
+            case LAYER.INSIDE:
+                inside_layer.SetActive( true );
+                outside_layer.SetActive( false );
+                break;
+            case LAYER.OUTSIDE:
+                inside_layer.SetActive( false );
+                outside_layer.SetActive( true );
+                break;
+        }
+    }
+
+    void init( ) {
+        days = 1;
+        resources.fuels = 100;
+        resources.foods = 100;
+        resources.water = 100;
+        resources.guns = 1;
+        resources.medical_kits = 1;
+        resources.radios = 1;
+        resources.repair_tools = 1;
     }
 
     void changeScene( ) {
@@ -36,39 +69,34 @@ public class GameManager : MonoBehaviour {
     }
 
     bool gameOver( ) {
-        if ( _foods <= 0 ) {
+        if ( resources.foods <= 0 ) {
             return true;
         }
         return false;
     }
 
-    public int getFuels( ) {
-        return _fuels;
-    }
-
-    public int getFoods( ) {
-        return _foods;
-    }
-
-    public int getBullets( ) {
-        return _bullets;
-    }
-
-    public int getDays( ) {
-        return _days;
-    }
-
-    public LAYER getLayer( ) {
-        return _layer;
-    }
-
-    public void setLayer( LAYER layer ) {
-        _layer = layer;
-    }
-
     public void NextDay( ) {
-        _days++;
-        _fuels -= 10;
-        _foods -= 10;
+        days++;
+        resources.fuels -= 10;
+        resources.foods -= 10;
     }
+
+    public LAYER getLayer( ) { return _layer; }
+    public void setLayer( LAYER layer ) { _layer = layer; }
+
+    public int getDays( )        { return days;                   }
+    public int getFuels( )       { return resources.fuels;        }
+    public int getFoods( )       { return resources.foods;        }
+    public int getWater( )       { return resources.water;        }
+    public int getGuns( )        { return resources.guns;         }
+    public int getMedicalKits( ) { return resources.medical_kits; }
+    public int getRadios( )      { return resources.radios;       }
+    public int getRepairTools( ) { return resources.repair_tools; }
+    public void setFuels( int fuels )              { resources.fuels = fuels;               }
+    public void setFoods( int foods )              { resources.foods = foods;               }
+    public void setWater( int water )              { resources.water = water;               }
+    public void setGuns( int guns )                { resources.guns = guns;                 }
+    public void setMedicalKits( int medical_kits ) { resources.medical_kits = medical_kits; }
+    public void setRadios( int radios )            { resources.radios = radios;             }
+    public void setRepairTools( int repair_tools ) { resources.repair_tools = repair_tools; }
 }

@@ -76,6 +76,10 @@ public class LogManager : MonoBehaviour {
         log_open = flag;
     }
 
+    public void setLogPage( int page ) {
+        log_page = page;
+    }
+
     public int getLogPage( ) {
         return log_page;
     }

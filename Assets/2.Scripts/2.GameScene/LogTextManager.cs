@@ -20,10 +20,14 @@ public class LogTextManager : MonoBehaviour {
                 gameObject.GetComponent<Text>( ).text = "Story";
             }
             if ( log_page == 2 ) {
-                gameObject.GetComponent<Text>( ).text = "Days    : " + game_system.GetComponent<GameManager>( ).getDays( ).ToString( ) + "\n\n"
-                                                      + "Fuels   : " + game_system.GetComponent<GameManager>( ).getFuels( ).ToString( ) + "\n"
-                                                      + "Foods   : " + game_system.GetComponent<GameManager>( ).getFoods( ).ToString( ) + "\n"
-                                                      + "Bullets : " + game_system.GetComponent<GameManager>( ).getBullets( ).ToString( ) + "\n";
+                gameObject.GetComponent<Text>( ).text = "Days           : " + game_system.GetComponent<GameManager>( ).getDays( ).ToString( )        + "\n\n"
+                                                      + "Fuels          : " + game_system.GetComponent<GameManager>( ).getFuels( ).ToString( )       + "\n"
+                                                      + "Foods          : " + game_system.GetComponent<GameManager>( ).getFoods( ).ToString( )       + "\n"
+                                                      + "Water          : " + game_system.GetComponent<GameManager>( ).getWater( ).ToString( )       + "\n"
+                                                      + "Guns           : " + game_system.GetComponent<GameManager>( ).getGuns( ).ToString( )        + "\n"
+                                                      + "Medical Kits   : " + game_system.GetComponent<GameManager>( ).getMedicalKits( ).ToString( ) + "\n"
+                                                      + "Radios         : " + game_system.GetComponent<GameManager>( ).getRadios( ).ToString( )      + "\n"
+                                                      + "Repair Tools   : " + game_system.GetComponent<GameManager>( ).getRepairTools( ).ToString( ) + "\n";
             }
         }
         if ( gameObject.name == "RightPage" ) {
@@ -31,10 +35,10 @@ public class LogTextManager : MonoBehaviour {
                 gameObject.GetComponent<Text>( ).text = "Story";
             }
             if ( log_page == 2 ) {
-                gameObject.GetComponent<Text>( ).text = "Father  : 10\n"
-                                                      + "Mother  : 10\n"
-                                                      + "Sister  : 10\n"
-                                                      + "Brother : 10\n";
+                gameObject.GetComponent<Text>( ).text = "Father  : Foods 10, Water 10\n"
+                                                      + "Mother  : Foods 10, Water 10\n"
+                                                      + "Sister  : Foods 10, Water 10\n"
+                                                      + "Brother : Foods 10, Water 10\n";
             }
         }
     }

@@ -70,7 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\2.Scripts\1.TitleScene\StartButton.cs" />
-    <Compile Include="Assets\2.Scripts\2.GameScene\ButtonEvent.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\ButtonManger.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\CharacterManager.cs" />
     <Compile Include="Assets\2.Scripts\2.GameScene\EventManager.cs" />
     <Compile Include="Assets\2.Scripts\2.GameScene\GameManager.cs" />
     <Compile Include="Assets\2.Scripts\2.GameScene\LogManager.cs" />
