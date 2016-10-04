@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
     private int days;
     private GameObject inside_layer;
     private GameObject outside_layer;
+	private GameObject character_system;
     private RESOURCES resources;
     private LAYER _layer;
 
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour {
 
         inside_layer = GameObject.Find( "InsideLayer" ).gameObject;
         outside_layer = GameObject.Find( "OutsideLayer" ).gameObject;
+		character_system = GameObject.Find( "CharacterSystem" ).gameObject;
     }
 
     void Update( ) {
@@ -76,9 +78,17 @@ public class GameManager : MonoBehaviour {
     }
 
     public void NextDay( ) {
+		FatherStatus father = character_system.GetComponent<FatherStatus>( );
+		MotherStatus mother = character_system.GetComponent<MotherStatus>( );
+		SisterStatus sister = character_system.GetComponent<SisterStatus>( );
+		BrotherStatus brother = character_system.GetComponent<BrotherStatus>( );
         days++;
         resources.fuels -= 10;
-        resources.foods -= 10;
+
+		father.setFoods( father.getStatus( ).Foods - 1 );
+		mother.setFoods( mother.getStatus( ).Foods - 1 );
+		sister.setFoods( sister.getStatus( ).Foods - 1 );
+		brother.setFoods( brother.getStatus( ).Foods - 1 );
     }
 
     public LAYER getLayer( ) { return _layer; }
