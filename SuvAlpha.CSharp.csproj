@@ -74,8 +74,15 @@
     <Compile Include="Assets\2.Scripts\2.GameScene\CharacterManager.cs" />
     <Compile Include="Assets\2.Scripts\2.GameScene\EventManager.cs" />
     <Compile Include="Assets\2.Scripts\2.GameScene\GameManager.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\InsideManager.cs" />
     <Compile Include="Assets\2.Scripts\2.GameScene\LogManager.cs" />
     <Compile Include="Assets\2.Scripts\2.GameScene\LogTextManager.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\OutsideManager.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\Statuses\BrotherStatus.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\Statuses\FatherStatus.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\Statuses\MotherStatus.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\Statuses\SisterStatus.cs" />
+    <Compile Include="Assets\2.Scripts\2.GameScene\UIButtonManger.cs" />
     <Compile Include="Assets\2.Scripts\3.MovieScenes\SkipButton.cs" />
     <Compile Include="Assets\2.Scripts\4.CreditScene\CreditManager.cs" />
     <Compile Include="Assets\2.Scripts\5.GameOverScene\GameOverManager.cs" />

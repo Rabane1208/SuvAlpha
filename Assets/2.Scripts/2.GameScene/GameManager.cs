@@ -41,8 +41,11 @@ public class GameManager : MonoBehaviour {
     }
 
     void updateLayer( ) {
+		Vector3 inside_layer_pos = inside_layer.transform.position;
         switch ( _layer ) {
             case LAYER.INSIDE:
+				inside_layer_pos.x = 0;
+				inside_layer.transform.position = inside_layer_pos;
                 inside_layer.SetActive( true );
                 outside_layer.SetActive( false );
                 break;
@@ -85,10 +88,10 @@ public class GameManager : MonoBehaviour {
         days++;
         resources.fuels -= 10;
 
-		father.setFoods( father.getStatus( ).Foods - 1 );
-		mother.setFoods( mother.getStatus( ).Foods - 1 );
-		sister.setFoods( sister.getStatus( ).Foods - 1 );
-		brother.setFoods( brother.getStatus( ).Foods - 1 );
+		father.setFoods( father.getFoods( ) - 1 );
+		sister.setFoods( sister.getFoods( ) - 1 );
+		mother.setFoods( mother.getFoods( ) - 1 );
+		brother.setFoods( brother.getFoods( ) - 1 );
     }
 
     public LAYER getLayer( ) { return _layer; }

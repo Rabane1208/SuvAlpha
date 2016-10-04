@@ -19,6 +19,9 @@ public class LogTextManager : MonoBehaviour {
         int log_page = log.GetComponent<LogManager>( ).getLogPage( );
 		GameManager game_manager = game_system.GetComponent<GameManager>( );
 		FatherStatus father = character_system.GetComponent<FatherStatus>( );
+		MotherStatus mother = character_system.GetComponent<MotherStatus>( );
+		SisterStatus sister = character_system.GetComponent<SisterStatus>( );
+		BrotherStatus brother = character_system.GetComponent<BrotherStatus>( );
 
 	    if ( gameObject.name == "LeftPage" ) {
             if ( log_page == 1 ) {
@@ -39,11 +42,14 @@ public class LogTextManager : MonoBehaviour {
                 gameObject.GetComponent<Text>( ).text = "Story";
             }
             if ( log_page == 2 ) {
-				gameObject.GetComponent<Text> ().text = "Father  : Foods " + father.getStatus( ).Foods.ToString( )
-													  + " Water " + father.getStatus( ).Water.ToString( ) + "\n"
-                                                      + "Mother  : Foods 10, Water 10\n"
-                                                      + "Sister  : Foods 10, Water 10\n"
-                                                      + "Brother : Foods 10, Water 10\n";
+				gameObject.GetComponent<Text>( ).text = "Father  : Foods " + father.getFoods( ).ToString( )
+													  + " Water " + father.getWater( ).ToString( ) + "\n"
+													  + "Mother  : Foods " + mother.getFoods( ).ToString( )
+													  + " Water " + father.getWater( ).ToString( ) + "\n"
+													  + "Sister  : Foods " + sister.getFoods( ).ToString( )
+													  + " Water " + father.getWater( ).ToString( ) + "\n"
+													  + "Brother  : Foods " + brother.getFoods( ).ToString( )
+													  + " Water " + father.getWater( ).ToString( ) + "\n";
             }
         }
     }
