@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
+# Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuvAlpha.CSharp", "SuvAlpha.CSharp.csproj", "{E43142F1-21F8-462F-44A6-C79B6C773C80}"
 EndProject
 Global
