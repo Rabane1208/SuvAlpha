@@ -23,7 +23,7 @@ public class ButtonManger : MonoBehaviour {
         log.GetComponent<LogManager>( ).setLogPage( 1 );
     }
 
-    public void ChangeLayer( ) {
+    public void ChangeLayerButton( ) {
         LAYER layer = game_system.GetComponent<GameManager>( ).getLayer( );
         if ( layer == LAYER.OUTSIDE ) {
             layer_button_text.GetComponent<Text>( ).text = "Outside";

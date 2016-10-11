@@ -1,115 +1,70 @@
-<<<<<<< HEAD
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class LogTextManager : MonoBehaviour {
-    private GameObject game_system;
+    private ShipStatus ship_status;
     private GameObject log;
-	private GameObject character_system;
+	private CharacterManager character_manager;
+    private GameManager game_manager;
+    private EventManager event_manager;
 
-	// Use this for initialization
-	void Start( ) {
-        game_system = GameObject.Find( "GameSystem" ).gameObject;
+
+    // Use this for initialization
+    void Start( ) {
+        ship_status = GameObject.Find( "ShipStatus" ).gameObject.GetComponent<ShipStatus>( );
         log = GameObject.Find( "Log" ).gameObject;
-		character_system = GameObject.Find( "CharacterSystem" ).gameObject;
+		character_manager = GameObject.Find( "CharacterSystem" ).gameObject.GetComponent<CharacterManager>( );
+		game_manager = GameObject.Find( "GameSystem" ).gameObject.GetComponent<GameManager>( );
+        event_manager = GameObject.Find( "EventSystem" ).gameObject.GetComponent<EventManager>( );
     }
 	
 	// Update is called once per frame
 	void Update( ) {
         int log_page = log.GetComponent<LogManager>( ).getLogPage( );
-		GameManager game_manager = game_system.GetComponent<GameManager>( );
-		FatherStatus father = character_system.GetComponent<FatherStatus>( );
-		MotherStatus mother = character_system.GetComponent<MotherStatus>( );
-		SisterStatus sister = character_system.GetComponent<SisterStatus>( );
-		BrotherStatus brother = character_system.GetComponent<BrotherStatus>( );
-
-	    if ( gameObject.name == "LeftPage" ) {
+        if ( gameObject.name == "LeftPage" ) {
             if ( log_page == 1 ) {
                 gameObject.GetComponent<Text>( ).text = "Story";
             }
             if ( log_page == 2 ) {
-				gameObject.GetComponent<Text>( ).text = "Days           : " + game_manager.getDays( ).ToString( )        + "\n\n"
-													  + "Fuels          : " + game_manager.getFuels( ).ToString( )       + "\n"
-                                                      + "Foods          : " + game_manager.getFoods( ).ToString( )       + "\n"
-                                                      + "Water          : " + game_manager.getWater( ).ToString( )       + "\n"
-                                                      + "Medical Kits   : " + game_manager.getMedicalKits( ).ToString( ) + "\n"
-                                                      + "Radios         : " + game_manager.getRadios( ).ToString( )      + "\n"
-                                                      + "Repair Tools   : " + game_manager.getRepairTools( ).ToString( ) + "\n";
+				gameObject.GetComponent<Text> ().text = "Days           : " + game_manager.getDays( ).ToString( ) + "\n\n"
+				+ "Fuels          : " + ship_status.getResources( ).fuels.ToString () + "\n"
+				+ "Foods          : " + ship_status.getResources( ).foods.ToString () + "\n"
+				+ "Water          : " + ship_status.getResources( ).water.ToString () + "\n"
+				+ "Medical Kits   : " + ship_status.getResources( ).medical_kits.ToString () + "\n"
+				+ "Repair Tools   : " + ship_status.getResources( ).repair_tools.ToString () + "\n"
+				+ "Radios         : " + ship_status.getResources( ).radios.ToString () + "\n";
             }
         }
         if ( gameObject.name == "RightPage" ) {
             if ( log_page == 1 ) {
-                gameObject.GetComponent<Text>( ).text = "Story";
+                gameObject.GetComponent<Text>( ).text = ( string )event_manager.getData( game_manager.randEvent( ), EVENTDATA.STORY );
             }
             if ( log_page == 2 ) {
-				gameObject.GetComponent<Text>( ).text = "Father  : Foods " + father.getFoods( ).ToString( )
-													  + " Water " + father.getWater( ).ToString( ) + "\n"
-													  + "Mother  : Foods " + mother.getFoods( ).ToString( )
-													  + " Water " + father.getWater( ).ToString( ) + "\n"
-													  + "Sister  : Foods " + sister.getFoods( ).ToString( )
-													  + " Water " + father.getWater( ).ToString( ) + "\n"
-													  + "Brother  : Foods " + brother.getFoods( ).ToString( )
-													  + " Water " + father.getWater( ).ToString( ) + "\n";
+                Status father = character_manager.getCharacter( CHARACTER.FATHER );
+                Status mother = character_manager.getCharacter( CHARACTER.MOTHER );
+                Status sister = character_manager.getCharacter( CHARACTER.SISTER );
+                Status brother = character_manager.getCharacter( CHARACTER.BROTHER );
+
+                gameObject.GetComponent<Text>( ).text = writeStatus( father )
+                                                      + writeStatus( mother )
+                                                      + writeStatus( sister )
+                                                      + writeStatus( brother );
             }
         }
+    }
+
+    string writeStatus( Status character ) {
+        if ( character.getStatus( ).death ) {
+            return "";
+        }
+        string status_log;
+        status_log = character.name + "  : Foods " + character.getStatus( ).foods.ToString( )
+                   + " Water " + character.getStatus( ).water.ToString( ) + "\n"
+                   + "            Health " + character.getStatus( ).health.ToString( )
+                   + " Loyalty " + character.getStatus( ).loyalty.ToString( ) + "\n"
+                   + "            Disease " + character.getStatus( ).disease.ToString( ) + "\n";
+        return status_log;
     }
 }
-=======
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
-
-public class LogTextManager : MonoBehaviour {
-    private GameObject game_system;
-    private GameObject log;
-	private GameObject character_system;
-
-	// Use this for initialization
-	void Start( ) {
-        game_system = GameObject.Find( "GameSystem" ).gameObject;
-        log = GameObject.Find( "Log" ).gameObject;
-		character_system = GameObject.Find( "CharacterSystem" ).gameObject;
-    }
-	
-	// Update is called once per frame
-	void Update( ) {
-        int log_page = log.GetComponent<LogManager>( ).getLogPage( );
-		GameManager game_manager = game_system.GetComponent<GameManager>( );
-		FatherStatus father = character_system.GetComponent<FatherStatus>( );
-		MotherStatus mother = character_system.GetComponent<MotherStatus>( );
-		SisterStatus sister = character_system.GetComponent<SisterStatus>( );
-		BrotherStatus brother = character_system.GetComponent<BrotherStatus>( );
-
-	    if ( gameObject.name == "LeftPage" ) {
-            if ( log_page == 1 ) {
-                gameObject.GetComponent<Text>( ).text = "Story";
-            }
-            if ( log_page == 2 ) {
-				gameObject.GetComponent<Text>( ).text = "Days           : " + game_manager.getDays( ).ToString( )        + "\n\n"
-													  + "Fuels          : " + game_manager.getFuels( ).ToString( )       + "\n"
-                                                      + "Foods          : " + game_manager.getFoods( ).ToString( )       + "\n"
-                                                      + "Water          : " + game_manager.getWater( ).ToString( )       + "\n"
-                                                      + "Medical Kits   : " + game_manager.getMedicalKits( ).ToString( ) + "\n"
-                                                      + "Radios         : " + game_manager.getRadios( ).ToString( )      + "\n"
-                                                      + "Repair Tools   : " + game_manager.getRepairTools( ).ToString( ) + "\n";
-            }
-        }
-        if ( gameObject.name == "RightPage" ) {
-            if ( log_page == 1 ) {
-                gameObject.GetComponent<Text>( ).text = "Story";
-            }
-            if ( log_page == 2 ) {
-				gameObject.GetComponent<Text>( ).text = "Father  : Foods " + father.getFoods( ).ToString( )
-													  + " Water " + father.getWater( ).ToString( ) + "\n"
-													  + "Mother  : Foods " + mother.getFoods( ).ToString( )
-													  + " Water " + father.getWater( ).ToString( ) + "\n"
-													  + "Sister  : Foods " + sister.getFoods( ).ToString( )
-													  + " Water " + father.getWater( ).ToString( ) + "\n"
-													  + "Brother  : Foods " + brother.getFoods( ).ToString( )
-													  + " Water " + father.getWater( ).ToString( ) + "\n";
-            }
-        }
-    }
-}
->>>>>>> eb2275d70e12f63b1fcc8cb1e6367ab3e154508d
