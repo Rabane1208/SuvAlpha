@@ -60,9 +60,6 @@ public class TitleAnimationManager : MonoBehaviour {
         //starTwingcle( star4, _timer, 3.0f, 0.2f );
 
         starTwingcle( ship_light, _timer, 3.0f, 0.0f );
-
-        Color color = star0.GetComponent<SpriteRenderer>( ).material.color;
-        Debug.Log( color.a );
     }
 
     void layerWave( GameObject obj, float ampplitude, float timer, float speed, float s_pos ) {

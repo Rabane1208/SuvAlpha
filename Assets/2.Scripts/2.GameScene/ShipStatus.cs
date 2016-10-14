@@ -2,8 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public struct RESOURCES
-{
+public struct RESOURCES {
     public int fuels;
     public int foods;
     public int water;
@@ -17,19 +16,57 @@ public struct RESOURCES
 public class ShipStatus : MonoBehaviour {
     private RESOURCES resources;
 
-	void Awake( ) {
+    public int StartFuels;
+    public int StartFoods;
+    public int StartWater;
+    public int StartGuns;
+    public int StartMedicalKits;
+    public int StartRepairTools;
+    public int StartRadios;
+
+    void Awake( ) {
 		init( );
 	}
 
+    public void setNewShip( ) {
+        PlayerPrefs.SetInt( "Fuels", StartFuels );
+        PlayerPrefs.SetInt( "Foods", StartFoods );
+        PlayerPrefs.SetInt( "Water", StartWater );
+        PlayerPrefs.SetInt( "Guns", StartGuns );
+        PlayerPrefs.SetInt( "MedicalKits", StartMedicalKits );
+        PlayerPrefs.SetInt( "RepairTools", StartRepairTools );
+        PlayerPrefs.SetInt( "Radios", StartRadios );
+        resources.ship_break = false;
+        PlayerPrefs.Save( );
+    }
+
     void init( ) {
-        resources.fuels = 10;
-        resources.foods = 20;
-        resources.water = 20;
-        resources.guns = 3;
-        resources.medical_kits = 3;
-        resources.repair_tools = 3;
-        resources.radios = 1;
-        PlayerPrefs.Save();
+        resources.fuels = PlayerPrefs.GetInt( "Fuels" );
+        resources.foods = PlayerPrefs.GetInt( "Foods" );
+        resources.water = PlayerPrefs.GetInt( "Water" );
+        resources.guns = PlayerPrefs.GetInt( "Guns" );
+        resources.medical_kits = PlayerPrefs.GetInt( "MedicalKits" );
+        resources.repair_tools = PlayerPrefs.GetInt( "RepairTools" );
+        resources.radios = PlayerPrefs.GetInt( "Radios" );
+        if ( PlayerPrefs.GetInt( "Broken" ) == 1 ) {
+            resources.ship_break = true;
+        } else {
+            resources.ship_break = false;
+        }
+    }
+
+    public void saveData( ) {
+        PlayerPrefs.SetInt( "Fuels", resources.fuels );
+        PlayerPrefs.SetInt( "Foods", resources.foods );
+        PlayerPrefs.SetInt( "Water", resources.water );
+        PlayerPrefs.SetInt( "Guns", resources.guns );
+        PlayerPrefs.SetInt( "MedicalKits", resources.medical_kits );
+        PlayerPrefs.SetInt( "RepairTools", resources.repair_tools );
+        PlayerPrefs.SetInt( "Radios", resources.radios );
+        if ( resources.ship_break ) {
+            PlayerPrefs.SetInt( "Broken", 1 );
+        }
+        PlayerPrefs.Save( );
     }
 
     public bool isShipBreak() { return resources.ship_break; }

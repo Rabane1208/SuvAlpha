@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -8,9 +9,11 @@ public enum LAYER {
 }
 
 public class GameManager : MonoBehaviour {
-    public int MAIN_EVENT_INTERVAL = 5;
+    public int MAIN_EVENT_INTERVAL = 10;
+    public int MAX_DAYS = 70;
 
     private int days;
+    private float time;
     private LAYER _layer;
     private int rand_event;
 
@@ -19,30 +22,52 @@ public class GameManager : MonoBehaviour {
     private CharacterManager character_manager;
     private EventManager event_manager;
     private ShipStatus ship_status;
+    private GameObject watch;
 
-    void Start( ) {
-        init( );
-
+    void Awake( ) {
         inside_layer = GameObject.Find( "InsideLayer" ).gameObject;
         outside_layer = GameObject.Find( "OutsideLayer" ).gameObject;
-        character_manager = GameObject.Find( "CharacterSystem" ).gameObject.GetComponent<CharacterManager>( );
+        character_manager = GameObject.Find( "Characters" ).gameObject.GetComponent<CharacterManager>( );
         event_manager = GameObject.Find( "EventSystem" ).gameObject.GetComponent<EventManager>( );
         ship_status = GameObject.Find( "ShipStatus" ).gameObject.GetComponent<ShipStatus>( );
         rand_event = Random.Range( 0, ( int )event_manager.getMaxData( ) );
+
+        watch = GameObject.Find( "Watch" ).gameObject;
+
+        init( );
     }
 
     void Update( ) {
+        updateWatch( );
         updateLayer( );
         changeScene( );
     }
 
     void init( ) {
         if ( PlayerPrefs.GetInt( "Days" ) == 0 ) {
+            character_manager.setNewGame( );
+            ship_status.setNewShip( );
             PlayerPrefs.SetInt( "Days", 1 );
+            PlayerPrefs.Save( );
         }
-        days = PlayerPrefs.GetInt("Days");
-
+        days = PlayerPrefs.GetInt( "Days" );
+        time = PlayerPrefs.GetFloat( "Time" );
         _layer = LAYER.OUTSIDE;
+    }
+
+    void updateWatch( ) {
+        time += Time.deltaTime;
+        int hour = ( int )time / 60;
+        int mint = ( int )time % 60;
+        watch.GetComponent<Text>( ).text = days.ToString( ) + " Days  " 
+            + hour.ToString( "00" ) + " : " + mint.ToString( "00" ) 
+            + "  " + PlayerPrefs.GetInt( "Select" ).ToString( )
+            + "  " + PlayerPrefs.GetInt( "Chara1Alive" ).ToString( )
+            + PlayerPrefs.GetInt( "Chara2Alive" ).ToString( )
+            + PlayerPrefs.GetInt( "Chara3Alive" ).ToString( )
+            + PlayerPrefs.GetInt( "Chara4Alive" ).ToString( )
+            + PlayerPrefs.GetInt( "Chara5Alive" ).ToString( )
+            + PlayerPrefs.GetInt( "Chara6Alive" ).ToString( );
     }
 
     public int randEvent( ) {
@@ -67,14 +92,19 @@ public class GameManager : MonoBehaviour {
 
     void changeScene( ) {
         if ( gameOver( ) ) {
-            PlayerPrefs.DeleteAll( );
+            character_manager.setNewGame( );
+            ship_status.setNewShip( );
+            PlayerPrefs.SetInt( "GameOver", 1 );
+            PlayerPrefs.SetInt( "LoadGame", 0 );
+            PlayerPrefs.Save( );
             SceneManager.LoadScene( "GameOverScene" );
         }
+        if ( days >= MAX_DAYS ) {
+            SceneManager.LoadScene( "EndingScene" );
+        }
         if ( days % MAIN_EVENT_INTERVAL == 0 ) {
-            PlayerPrefs.SetInt( "EventNumber", days / MAIN_EVENT_INTERVAL );
+            PlayerPrefs.SetInt( "EventNumber", days / MAIN_EVENT_INTERVAL - 1 );
             NextDay( );
-            PlayerPrefs.SetInt( "Days", days );
-            PlayerPrefs.Save( );
             SceneManager.LoadScene( "MovieScene" );
         }
     }
@@ -96,11 +126,18 @@ public class GameManager : MonoBehaviour {
         days++;
         ship_status.setFuels( ship_status.getResources( ).fuels - 1 );
         character_manager.nextDay( );
+        dataSave( );
         rand_event = Random.Range( 0, ( int )event_manager.getMaxData( ) );
+    }
+    
+    public void dataSave( ) {
+        ship_status.saveData( );
+        PlayerPrefs.SetInt( "Days", days );
+        PlayerPrefs.SetFloat( "Time", time );
+        PlayerPrefs.Save( );
     }
 	
     public LAYER getLayer( ) { return _layer; }
     public void setLayer( LAYER layer ) { _layer = layer; }
     public int getDays( ) { return days; }
-    
 }

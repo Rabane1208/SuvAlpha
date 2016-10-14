@@ -12,17 +12,23 @@ public struct STATUS {
 }
 
 public enum CHARACTER {
-    FATHER,
-    MOTHER,
-    SISTER,
-    BROTHER,
+    NONE,
+    CHARA1,
+    CHARA2,
+    CHARA3,
+    CHARA4,
+    CHARA5,
+    CHARA6,
+    MAX,
 }
 
 public class CharacterManager : MonoBehaviour {
-    Status father;
-    Status mother;
-    Status sister;
-    Status brother;
+    Status chara1;
+    Status chara2;
+    Status chara3;
+    Status chara4;
+    Status chara5;
+    Status chara6;
 
     //Came to next day, character decrease foods and wather. 
     public int DECREASE_FOODS_HEALTHY;
@@ -48,7 +54,7 @@ public class CharacterManager : MonoBehaviour {
     public int DECREASE_LOYALTY_SICK;
     public int DECREASE_LOYALTY_DISSATISFACTION;
 
-    void Start( ) {
+    void Awake( ) {
         DECREASE_FOODS_HEALTHY = 1;
         DECREASE_WATER_HEALTHY = 1;
         DECREASE_WATER_SICK = 1;
@@ -64,14 +70,46 @@ public class CharacterManager : MonoBehaviour {
         SATISFACTION_VALUE = 5;
         DISSATISFACTION_VALUE = 2;
 
-		father = GameObject.Find( "Father" ).GetComponent<Status>( );
-		mother = GameObject.Find( "Mother" ).GetComponent<Status>( );
-		sister = GameObject.Find( "Sister" ).GetComponent<Status>( );
-		brother = GameObject.Find( "Brother" ).GetComponent<Status>( );
+		chara1 = GameObject.Find( "Chara1" ).GetComponent<Status>( );
+		chara2 = GameObject.Find( "Chara2" ).GetComponent<Status>( );
+		chara3 = GameObject.Find( "Chara3" ).GetComponent<Status>( );
+		chara4 = GameObject.Find( "Chara4" ).GetComponent<Status>( );
+		chara5 = GameObject.Find( "Chara5" ).GetComponent<Status>( );
+		chara6 = GameObject.Find( "Chara6" ).GetComponent<Status>( );
     }
 	
 	void Update( ) {
-        
+        AliveCharacters( );
+    }
+
+    public void setNewGame( ) {
+        chara1.setNew( );
+        chara2.setNew( );
+        chara3.setNew( );
+        chara4.setNew( );
+        chara5.setNew( );
+        chara6.setNew( );
+    }
+
+    public void AliveCharacters( ) {
+        if ( PlayerPrefs.GetInt( "Chara1Alive" ) == 0 ) {
+            chara1.setDeath( true );
+        }
+        if ( PlayerPrefs.GetInt( "Chara2Alive" ) == 0 ) {
+            chara2.setDeath( true );
+        }
+        if ( PlayerPrefs.GetInt( "Chara3Alive" ) == 0 ) {
+            chara3.setDeath( true );
+        }
+        if ( PlayerPrefs.GetInt( "Chara4Alive" ) == 0 ) {
+            chara4.setDeath( true );
+        }
+        if ( PlayerPrefs.GetInt( "Chara5Alive" ) == 0 ) {
+            chara5.setDeath( true );
+        }
+        if ( PlayerPrefs.GetInt( "Chara6Alive" ) == 0 ) {
+            chara6.setDeath( true );
+        }
     }
 
     void death( Status character ) {
@@ -153,48 +191,73 @@ public class CharacterManager : MonoBehaviour {
     }
 
     public void nextDay( ) {
-        decreaseFoods( father );
-        decreaseFoods( mother );
-        decreaseFoods( sister );
-        decreaseFoods( brother );
+        decreaseFoods( chara1 );
+        decreaseFoods( chara2 );
+        decreaseFoods( chara3 );
+        decreaseFoods( chara4 );
+        decreaseFoods( chara5 );
+        decreaseFoods( chara6 );
 
-        decreaseWater( father );
-        decreaseWater( mother );
-        decreaseWater( sister );
-        decreaseWater( brother );
+        decreaseWater( chara1 );
+        decreaseWater( chara2 );
+        decreaseWater( chara3 );
+        decreaseWater( chara4 );
+        decreaseWater( chara5 );
+        decreaseWater( chara6 );
 
-        variationHealth( father );
-        variationHealth( mother );
-        variationHealth( sister );
-        variationHealth( brother );
+        variationHealth( chara1 );
+        variationHealth( chara2 );
+        variationHealth( chara3 );
+        variationHealth( chara4 );
+        variationHealth( chara5 );
+        variationHealth( chara6 );
 
-        variationLoyality( father );
-        variationLoyality( mother );
-        variationLoyality( sister );
-        variationLoyality( brother );
+        variationLoyality( chara1 );
+        variationLoyality( chara2 );
+        variationLoyality( chara3 );
+        variationLoyality( chara4 );
+        variationLoyality( chara5 );
+        variationLoyality( chara6 );
 
-        death( father );
-        death( mother );
-        death( sister );
-        death( brother );
+        death( chara1 );
+        death( chara2 );
+        death( chara3 );
+        death( chara4 );
+        death( chara5 );
+        death( chara6 );
 
-        haveDisease( father );
-        haveDisease( mother );
-        haveDisease( sister );
-        haveDisease( brother );
+        haveDisease( chara1 );
+        haveDisease( chara2 );
+        haveDisease( chara3 );
+        haveDisease( chara4 );
+        haveDisease( chara5 );
+        haveDisease( chara6 );
+
+        chara1.saveData( );
+        chara2.saveData( );
+        chara3.saveData( );
+        chara4.saveData( );
+        chara5.saveData( );
+        chara6.saveData( );
     }
 
     public bool allDeath( ) {
-        if ( !father.getStatus( ).death ) {
+        if ( !chara1.getStatus( ).death ) {
             return false;
         }
-        if ( !mother.getStatus( ).death ) {
+        if ( !chara2.getStatus( ).death ) {
             return false;
         }
-        if ( !sister.getStatus( ).death ) {
+        if ( !chara3.getStatus( ).death ) {
             return false;
         }
-        if ( !brother.getStatus( ).death ) {
+        if ( !chara4.getStatus( ).death ) {
+            return false;
+        }
+        if ( !chara5.getStatus( ).death ) {
+            return false;
+        }
+        if ( !chara6.getStatus( ).death ) {
             return false;
         }
         return true;
@@ -202,16 +265,20 @@ public class CharacterManager : MonoBehaviour {
 
     public Status getCharacter( CHARACTER character ) {
         switch ( character ) {
-            case CHARACTER.FATHER:
-                return father;
-            case CHARACTER.MOTHER:
-                return mother;
-            case CHARACTER.SISTER:
-                return sister;
-            case CHARACTER.BROTHER:
-                return brother;
+            case CHARACTER.CHARA1:
+                return chara1;
+            case CHARACTER.CHARA2:
+                return chara2;
+            case CHARACTER.CHARA3:
+                return chara3;
+            case CHARACTER.CHARA4:
+                return chara4;
+            case CHARACTER.CHARA5:
+                return chara5;
+            case CHARACTER.CHARA6:
+                return chara6;
             default:
-                return father;
+                return chara1;
         }
     }
 }

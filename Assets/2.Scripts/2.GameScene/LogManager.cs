@@ -31,15 +31,12 @@ public class LogManager : MonoBehaviour {
             return;
         }
 
-        if ( hit.transform.gameObject.name == "Log" ) {
-            log_open = true;
-        }
-
         if ( hit.transform.gameObject.name == "CloseButton" ) {
             log_open = false;
         }
 
         if ( hit.transform.gameObject.name == "NextPageButton" ) {
+            gameObject.GetComponent<Animator>( ).SetTrigger( "NextPage" );
             log_page = 2;
         }
 

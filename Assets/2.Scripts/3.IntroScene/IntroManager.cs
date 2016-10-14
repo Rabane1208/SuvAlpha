@@ -8,7 +8,6 @@ public class IntroManager : MonoBehaviour {
 	float _timer_switch;
 	float _event_time;
 	int _event_num;
-	int _select;
 
 	public int FIRST_EVENT;
 	public int SECOND_EVENT;
@@ -25,24 +24,15 @@ public class IntroManager : MonoBehaviour {
 	GameObject _text;
 
 	// Use this for initialization
-	void Start( ) {
-		FIRST_EVENT = 1;
-		SECOND_EVENT = 2;
-        THIRD_EVENT = 3;
-        FOURTH_EVENT = 2;
-        FIFTH_EVENT = 1;
-        SIXTH_EVENT = 4;
-        SEVENTH_EVENT = 4;
-
+	void Start( ) { 
         _timer = 0;
 		_timer_switch = 1;
 		_event_time = FIRST_EVENT;
-		_event_num = 0;
-		_select = 0;
+        _event_num = 1;
 		_yes_text = GameObject.Find( "YesText" ).gameObject;
 		_no_text = GameObject.Find( "NoText" ).gameObject;
-		_yes_text.GetComponent<Text>( ).text = "0";
-		_no_text.GetComponent<Text>( ).text = "0";
+		_yes_text.GetComponent<Text>( ).text = "Yes 0";
+		_no_text.GetComponent<Text>( ).text = "No 0";
 		_button = GameObject.Find( "Button" ).gameObject;
 
 		_text = GameObject.Find( "Text" ).gameObject;
@@ -51,20 +41,59 @@ public class IntroManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update( ) {
         if ( _event_num > 6 ) {
-            PlayerPrefs.SetInt( "IntroSelect", _select );
             SceneManager.LoadScene( "GameScene" );
         }
-        if ( _select == 15 ) {
 
+        if ( _event_num > 6 && allDeath( ) ) {
+            PlayerPrefs.SetInt( "GameOver", 0 );
+            PlayerPrefs.SetInt( "LoadGame", 0 );
+            PlayerPrefs.Save( );
+            SceneManager.LoadScene( "GameOverScene" );
         }
-		_timer += _timer_switch * Time.deltaTime;
+
+        if ( _timer > 3 ) {
+            SceneManager.LoadScene( "GameScene" );
+        }
+        
+        limitFourChara( );
+
+        _timer += _timer_switch * Time.deltaTime;
 		drawButton( );
 		Select( _event_time );
 		Debug.Log( _timer );
-		_text.GetComponent<Text>().text = _event_num.ToString( ) +"  " + _select.ToString();
-	}
+		_text.GetComponent<Text>( ).text = "Character " + _event_num.ToString( ) + "  " 
+            + PlayerPrefs.GetInt( "Chara1Alive" ).ToString( )
+            + PlayerPrefs.GetInt( "Chara2Alive" ).ToString( )
+            + PlayerPrefs.GetInt( "Chara3Alive" ).ToString( )
+            + PlayerPrefs.GetInt( "Chara4Alive" ).ToString( )
+            + PlayerPrefs.GetInt( "Chara5Alive" ).ToString( )
+            + PlayerPrefs.GetInt( "Chara6Alive" ).ToString( );
+    }
 
-	void drawButton( ) {
+    void limitFourChara( ) {
+        if ( PlayerPrefs.GetInt( "Chara1Alive" ) + 
+             PlayerPrefs.GetInt( "Chara2Alive" ) +
+             PlayerPrefs.GetInt( "Chara3Alive" ) +
+             PlayerPrefs.GetInt( "Chara4Alive" ) +
+             PlayerPrefs.GetInt( "Chara5Alive" ) +
+             PlayerPrefs.GetInt( "Chara6Alive" ) >= 4 ) {
+            _timer_switch = 1;
+        }
+    }
+
+    bool allDeath( ) {
+        if ( PlayerPrefs.GetInt( "Chara1Alive" ) +
+             PlayerPrefs.GetInt( "Chara2Alive" ) +
+             PlayerPrefs.GetInt( "Chara3Alive" ) +
+             PlayerPrefs.GetInt( "Chara4Alive" ) +
+             PlayerPrefs.GetInt( "Chara5Alive" ) +
+             PlayerPrefs.GetInt( "Chara6Alive" ) == 0 ) {
+            return true;
+        }
+        return false;
+    }
+
+    void drawButton( ) {
 		if ( _timer_switch == 1 ) {
 			_button.SetActive( false );
 		}
@@ -85,28 +114,28 @@ public class IntroManager : MonoBehaviour {
 				break;
 			case 1:
                 _event_time = THIRD_EVENT;
-                _yes_text.GetComponent<Text>( ).text = "1";
-				_no_text.GetComponent<Text>( ).text = "1";
+                _yes_text.GetComponent<Text>( ).text = "Yes 1";
+				_no_text.GetComponent<Text>( ).text = "No 1";
 				break;
 			case 2:
                 _event_time = FOURTH_EVENT;
-                _yes_text.GetComponent<Text>( ).text = "2";
-				_no_text.GetComponent<Text>( ).text = "2";
+                _yes_text.GetComponent<Text>( ).text = "Yes 2";
+				_no_text.GetComponent<Text>( ).text = "No 2";
 				break;
 			case 3:
                 _event_time = FIFTH_EVENT;
-                _yes_text.GetComponent<Text>( ).text = "3";
-				_no_text.GetComponent<Text>( ).text = "3";
+                _yes_text.GetComponent<Text>( ).text = "Yes 3";
+				_no_text.GetComponent<Text>( ).text = "No 3";
 				break;
 			case 4:
                 _event_time = SIXTH_EVENT;
-                _yes_text.GetComponent<Text>( ).text = "4";
-				_no_text.GetComponent<Text>( ).text = "4";
+                _yes_text.GetComponent<Text>( ).text = "Yes 4";
+				_no_text.GetComponent<Text>( ).text = "No 4";
 				break;
 			case 5:
                 _event_time = SEVENTH_EVENT;
-                _yes_text.GetComponent<Text>( ).text = "5";
-				_no_text.GetComponent<Text>( ).text = "5";
+                _yes_text.GetComponent<Text>( ).text = "Yes 5";
+				_no_text.GetComponent<Text>( ).text = "No 5";
 				break;
 		}
 	}
@@ -117,14 +146,6 @@ public class IntroManager : MonoBehaviour {
 
 	public void setEventNum( int num ) {
 		_event_num = num;
-	}
-
-	public int getSelect( ) {
-		return _select;
-	}
-
-	public void setSelect( int num ) {
-		_select = num;
 	}
 
 	public void setTimerSwitch( int num ) {

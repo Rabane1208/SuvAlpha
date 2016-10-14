@@ -4,11 +4,11 @@ using System.Collections;
 
 public class MovieManager : MonoBehaviour {
     private GameObject _text;
-    private float _select;
+    private int _select;
 
     // Use this for initialization
 	void Start ( ) {
-        _select = PlayerPrefs.GetFloat( "Select" );
+        _select = PlayerPrefs.GetInt( "Select" );
         _text = GameObject.Find( "MovieNum" ).gameObject;
         _text.GetComponent<Text>( ).text = "Movie " + PlayerPrefs.GetInt( "EventNumber" ).ToString( );
     }
@@ -33,11 +33,11 @@ public class MovieManager : MonoBehaviour {
         }
     }
 
-    public float getSelect( ) {
+    public int getSelect( ) {
         return _select;
     }
 
-    public void setSelect( float select ) {
+    public void setSelect( int select ) {
         _select = select;
     }
 }

@@ -3,10 +3,10 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour {
-    MovieManager select_manager;
+    MovieManager movie_manager;
 
     void Awake( ) {
-        select_manager = GameObject.Find( "MovieSystem" ).gameObject.GetComponent<MovieManager>( );
+        movie_manager = GameObject.Find( "MovieSystem" ).gameObject.GetComponent<MovieManager>( );
     }
 
     public void SkipMovie( ) {
@@ -15,8 +15,8 @@ public class ButtonManager : MonoBehaviour {
 
     public void Select1( ) {
         int event_num = PlayerPrefs.GetInt( "EventNumber" );
-        select_manager.setSelect( select_manager.getSelect( ) + Mathf.Pow( 2.0f, ( float )event_num ) );
-        PlayerPrefs.SetFloat( "Select", select_manager.getSelect( ) );
+        movie_manager.setSelect( movie_manager.getSelect( ) + ( int )Mathf.Pow( 2.0f, ( float )event_num ) );
+        PlayerPrefs.SetInt( "Select", movie_manager.getSelect( ) );
         PlayerPrefs.Save( );
     }
 

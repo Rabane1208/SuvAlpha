@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class TitleButtonManager : MonoBehaviour {
     private GameObject mark;
+
     // Use this for initialization
     void Start( ) {
         mark = GameObject.Find( "Mark" ).gameObject;
@@ -22,6 +23,8 @@ public class TitleButtonManager : MonoBehaviour {
 
     public void NewGameButton( ) {
         PlayerPrefs.DeleteAll( );
+        PlayerPrefs.SetInt( "LoadGame", 1 );
+        PlayerPrefs.Save( );
         SceneManager.LoadScene( "IntroScene" );
     }
 

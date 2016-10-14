@@ -26,11 +26,24 @@ public class UIButtonManger : MonoBehaviour {
     public void ChangeLayer( ) {
         LAYER layer = game_system.GetComponent<GameManager>( ).getLayer( );
         if ( layer == LAYER.OUTSIDE ) {
-            layer_button_text.GetComponent<Text>( ).text = "Outside";
+            layer_button_text.GetComponent<Text>( ).text = "Outside  ";
             game_system.GetComponent<GameManager>( ).setLayer( LAYER.INSIDE );
         } else {
-            layer_button_text.GetComponent<Text>( ).text = "Inside";
+            layer_button_text.GetComponent<Text>( ).text = "Inside  ";
             game_system.GetComponent<GameManager>( ).setLayer( LAYER.OUTSIDE );
         }
+    }
+
+    public void OpenLog( ) {
+        if ( log.GetComponent<LogManager>( ).isLogOpened( ) ) {
+            log.GetComponent<LogManager>( ).setLogOpen( false );
+        }
+        if ( !log.GetComponent<LogManager>( ).isLogOpened( ) ) {
+            log.GetComponent<LogManager>( ).setLogOpen( true );
+        }
+    }
+
+    public void GoToOption( ) {
+        SceneManager.LoadScene( "OptionScene" );
     }
 }

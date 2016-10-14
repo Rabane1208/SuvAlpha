@@ -10,12 +10,11 @@ public class LogTextManager : MonoBehaviour {
     private GameManager game_manager;
     private EventManager event_manager;
 
-
     // Use this for initialization
     void Start( ) {
         ship_status = GameObject.Find( "ShipStatus" ).gameObject.GetComponent<ShipStatus>( );
         log = GameObject.Find( "Log" ).gameObject;
-		character_manager = GameObject.Find( "CharacterSystem" ).gameObject.GetComponent<CharacterManager>( );
+        character_manager = GameObject.Find( "Characters" ).gameObject.GetComponent<CharacterManager>( );
 		game_manager = GameObject.Find( "GameSystem" ).gameObject.GetComponent<GameManager>( );
         event_manager = GameObject.Find( "EventSystem" ).gameObject.GetComponent<EventManager>( );
     }
@@ -28,8 +27,8 @@ public class LogTextManager : MonoBehaviour {
                 gameObject.GetComponent<Text>( ).text = "Story";
             }
             if ( log_page == 2 ) {
-				gameObject.GetComponent<Text> ().text = "Days           : " + game_manager.getDays( ).ToString( ) + "\n\n"
-				+ "Fuels          : " + ship_status.getResources( ).fuels.ToString () + "\n"
+				gameObject.GetComponent<Text> ().text = 
+				  "Fuels          : " + ship_status.getResources( ).fuels.ToString () + "\n"
 				+ "Foods          : " + ship_status.getResources( ).foods.ToString () + "\n"
 				+ "Water          : " + ship_status.getResources( ).water.ToString () + "\n"
 				+ "Medical Kits   : " + ship_status.getResources( ).medical_kits.ToString () + "\n"
@@ -42,15 +41,19 @@ public class LogTextManager : MonoBehaviour {
                 gameObject.GetComponent<Text>( ).text = ( string )event_manager.getData( game_manager.randEvent( ), EVENTDATA.STORY );
             }
             if ( log_page == 2 ) {
-                Status father = character_manager.getCharacter( CHARACTER.FATHER );
-                Status mother = character_manager.getCharacter( CHARACTER.MOTHER );
-                Status sister = character_manager.getCharacter( CHARACTER.SISTER );
-                Status brother = character_manager.getCharacter( CHARACTER.BROTHER );
+                Status chara1 = character_manager.getCharacter( CHARACTER.CHARA1 );
+                Status chara2 = character_manager.getCharacter( CHARACTER.CHARA2 );
+                Status chara3 = character_manager.getCharacter( CHARACTER.CHARA3 );
+                Status chara4 = character_manager.getCharacter( CHARACTER.CHARA4 );
+                Status chara5 = character_manager.getCharacter( CHARACTER.CHARA5 );
+                Status chara6 = character_manager.getCharacter( CHARACTER.CHARA6 );
 
-                gameObject.GetComponent<Text>( ).text = writeStatus( father )
-                                                      + writeStatus( mother )
-                                                      + writeStatus( sister )
-                                                      + writeStatus( brother );
+                gameObject.GetComponent<Text>( ).text = writeStatus( chara1 )
+                                                      + writeStatus( chara2 )
+                                                      + writeStatus( chara3 )
+                                                      + writeStatus( chara4 )
+                                                      + writeStatus( chara5 )
+                                                      + writeStatus( chara6 );
             }
         }
     }

@@ -7,39 +7,49 @@ public class InsideManager : MonoBehaviour {
     private GameObject menus;
     private GameObject inside_system;
 
-    private GameObject inside_father;
-    private GameObject inside_mother;
-    private GameObject inside_sister;
-    private GameObject inside_brother;
+    private GameObject inside_chara1;
+    private GameObject inside_chara2;
+    private GameObject inside_chara3;
+    private GameObject inside_chara4;
+    private GameObject inside_chara5;
+    private GameObject inside_chara6;
 
-    private Status father;
-    private Status mother;
-    private Status sister;
-    private Status brother;
+    private Status chara1;
+    private Status chara2;
+    private Status chara3;
+    private Status chara4;
+    private Status chara5;
+    private Status chara6;
 
     // Use this for initialization
     void Start( ) {
         menus = GameObject.Find( "InsideMenus" ).gameObject;
         ship_status = GameObject.Find( "ShipStatus" ).gameObject.GetComponent<ShipStatus>( );
         inside_system = GameObject.Find( "InsideSystem" ).gameObject;
+        
+        inside_chara1 = GameObject.Find( "Chara1" ).gameObject;
+        inside_chara2 = GameObject.Find( "Chara2" ).gameObject;
+        inside_chara3 = GameObject.Find( "Chara3" ).gameObject;
+        inside_chara4 = GameObject.Find( "Chara4" ).gameObject;
+        inside_chara5 = GameObject.Find( "Chara5" ).gameObject;
+        inside_chara6 = GameObject.Find( "Chara6" ).gameObject;
 
-        inside_father = GameObject.Find( "InsideFather" ).gameObject;
-        inside_mother = GameObject.Find( "InsideMother" ).gameObject;
-        inside_sister = GameObject.Find( "InsideSister" ).gameObject;
-        inside_brother = GameObject.Find( "InsideBrother" ).gameObject;
-
-        father = GameObject.Find( "Father" ).gameObject.GetComponent<Status>( );
-        mother = GameObject.Find( "Mother" ).gameObject.GetComponent<Status>( );
-        sister = GameObject.Find( "Sister" ).gameObject.GetComponent<Status>( );
-        brother = GameObject.Find( "Brother" ).gameObject.GetComponent<Status>( );
+        chara1 = inside_chara1.GetComponent<Status>( );
+        chara2 = inside_chara2.GetComponent<Status>( );
+        chara3 = inside_chara3.GetComponent<Status>( );
+        chara4 = inside_chara4.GetComponent<Status>( );
+        chara5 = inside_chara5.GetComponent<Status>( );
+        chara6 = inside_chara6.GetComponent<Status>( );
     }
 
     // Update is called once per frame
     void Update( ) {
-        inside_father.SetActive( isInside( father ) );
-        inside_mother.SetActive( isInside( mother ) );
-        inside_sister.SetActive( isInside( sister ) );
-        inside_brother.SetActive( isInside( brother ) );
+        inside_chara1.SetActive( isInside( chara1 ) );
+        inside_chara2.SetActive( isInside( chara2 ) );
+        inside_chara3.SetActive( isInside( chara3 ) );
+        inside_chara4.SetActive( isInside( chara4 ) );
+        inside_chara5.SetActive( isInside( chara5 ) );
+        inside_chara6.SetActive( isInside( chara6 ) );
     }
 
     CHARACTER getMenu( ) {
@@ -66,17 +76,23 @@ public class InsideManager : MonoBehaviour {
         menus.transform.position = menus_pos;
 
         InsideManager inside_manager = inside_system.GetComponent<InsideManager>( );
-        if ( gameObject.name == "InsideFather" ) {
-            inside_manager.setMenu( CHARACTER.FATHER );
+        if ( gameObject.name == "Chara1" ) {
+            inside_manager.setMenu( CHARACTER.CHARA1 );
         }
-        if ( gameObject.name == "InsideMother" ) {
-            inside_manager.setMenu( CHARACTER.MOTHER );
+        if ( gameObject.name == "Chara2" ) {
+            inside_manager.setMenu( CHARACTER.CHARA2 );
         }
-        if ( gameObject.name == "InsideSister" ) {
-            inside_manager.setMenu( CHARACTER.SISTER );
+        if ( gameObject.name == "Chara3" ) {
+            inside_manager.setMenu( CHARACTER.CHARA3 );
         }
-        if ( gameObject.name == "InsideBrother" ) {
-            inside_manager.setMenu( CHARACTER.BROTHER );
+        if ( gameObject.name == "Chara4" ) {
+            inside_manager.setMenu( CHARACTER.CHARA4 );
+        }
+        if ( gameObject.name == "Chara5" ) {
+            inside_manager.setMenu( CHARACTER.CHARA5 );
+        }
+        if ( gameObject.name == "Chara6" ) {
+            inside_manager.setMenu( CHARACTER.CHARA6 );
         }
     }
 
@@ -84,17 +100,23 @@ public class InsideManager : MonoBehaviour {
         ship_status.setFoods( ship_status.getResources( ).foods - 1 );
         InsideManager inside_manager = inside_system.GetComponent<InsideManager>( );
         switch ( inside_manager.getMenu( ) ) {
-            case CHARACTER.FATHER:
-                father.setFoods( father.getStatus( ).foods + 1 );
+            case CHARACTER.CHARA1:
+                chara1.setFoods( chara1.getStatus( ).foods + 1 );
                 break;
-            case CHARACTER.MOTHER:
-                mother.setFoods( mother.getStatus( ).foods + 1 );
+            case CHARACTER.CHARA2:
+                chara2.setFoods( chara2.getStatus( ).foods + 1 );
                 break;
-            case CHARACTER.SISTER:
-                sister.setFoods( sister.getStatus( ).foods + 1 );
+            case CHARACTER.CHARA3:
+                chara3.setFoods( chara3.getStatus( ).foods + 1 );
                 break;
-            case CHARACTER.BROTHER:
-                brother.setFoods( brother.getStatus( ).foods + 1 );
+            case CHARACTER.CHARA4:
+                chara4.setFoods( chara4.getStatus( ).foods + 1 );
+                break;
+            case CHARACTER.CHARA5:
+                chara5.setFoods( chara5.getStatus( ).foods + 1 );
+                break;
+            case CHARACTER.CHARA6:
+                chara6.setFoods( chara6.getStatus( ).foods + 1 );
                 break;
         }
     }
@@ -103,40 +125,54 @@ public class InsideManager : MonoBehaviour {
         ship_status.setWater( ship_status.getResources( ).water - 1 );
         InsideManager inside_manager = inside_system.GetComponent<InsideManager>( );
         switch ( inside_manager.getMenu( ) ) {
-            case CHARACTER.FATHER:
-                father.setWater( father.getStatus( ).water + 1 );
+            case CHARACTER.CHARA1:
+                chara1.setWater( chara1.getStatus( ).water + 1 );
                 break;
-            case CHARACTER.MOTHER:
-                mother.setWater( mother.getStatus( ).water + 1 );
+            case CHARACTER.CHARA2:
+                chara2.setWater( chara2.getStatus( ).water + 1 );
                 break;
-            case CHARACTER.SISTER:
-                sister.setWater( sister.getStatus( ).water + 1 );
+            case CHARACTER.CHARA3:
+                chara3.setWater( chara3.getStatus( ).water + 1 );
                 break;
-            case CHARACTER.BROTHER:
-                brother.setWater( brother.getStatus( ).water + 1 );
+            case CHARACTER.CHARA4:
+                chara4.setWater( chara4.getStatus( ).water + 1 );
+                break;
+            case CHARACTER.CHARA5:
+                chara5.setWater( chara5.getStatus( ).water + 1 );
+                break;
+            case CHARACTER.CHARA6:
+                chara6.setWater( chara6.getStatus( ).water + 1 );
                 break;
         }
     }
 
     public void OutsideButtonEvent( ) {
-        father.setPlace( LAYER.INSIDE );
-        mother.setPlace( LAYER.INSIDE );
-        sister.setPlace( LAYER.INSIDE );
-        brother.setPlace( LAYER.INSIDE );
+        chara1.setPlace( LAYER.INSIDE );
+        chara2.setPlace( LAYER.INSIDE );
+        chara3.setPlace( LAYER.INSIDE );
+        chara4.setPlace( LAYER.INSIDE );
+        chara5.setPlace( LAYER.INSIDE );
+        chara6.setPlace( LAYER.INSIDE );
 
         InsideManager inside_manager = inside_system.GetComponent<InsideManager>( );
         switch ( inside_manager.getMenu( ) ) {
-            case CHARACTER.FATHER:
-                father.setPlace( LAYER.OUTSIDE );
+            case CHARACTER.CHARA1:
+                chara1.setPlace( LAYER.OUTSIDE );
                 break;
-            case CHARACTER.MOTHER:
-                mother.setPlace( LAYER.OUTSIDE );
+            case CHARACTER.CHARA2:
+                chara2.setPlace( LAYER.OUTSIDE );
                 break;
-            case CHARACTER.SISTER:
-                sister.setPlace( LAYER.OUTSIDE );
+            case CHARACTER.CHARA3:
+                chara3.setPlace( LAYER.OUTSIDE );
                 break;
-            case CHARACTER.BROTHER:
-                brother.setPlace( LAYER.OUTSIDE );
+            case CHARACTER.CHARA4:
+                chara4.setPlace( LAYER.OUTSIDE );
+                break;
+            case CHARACTER.CHARA5:
+                chara5.setPlace( LAYER.OUTSIDE );
+                break;
+            case CHARACTER.CHARA6:
+                chara6.setPlace( LAYER.OUTSIDE );
                 break;
         }
     }
@@ -152,17 +188,23 @@ public class InsideManager : MonoBehaviour {
     public void CureButtonEvent( ) {
         InsideManager inside_manager = inside_system.GetComponent<InsideManager>( );
         switch ( inside_manager.getMenu( ) ) {
-            case CHARACTER.FATHER:
-                cure( father );
+            case CHARACTER.CHARA1:
+                cure( chara1 );
                 break;
-            case CHARACTER.MOTHER:
-                cure( mother );
+            case CHARACTER.CHARA2:
+                cure( chara2 );
                 break;
-            case CHARACTER.SISTER:
-                cure( sister );
+            case CHARACTER.CHARA3:
+                cure( chara3 );
                 break;
-            case CHARACTER.BROTHER:
-                cure( brother );
+            case CHARACTER.CHARA4:
+                cure( chara4 );
+                break;
+            case CHARACTER.CHARA5:
+                cure( chara5 );
+                break;
+            case CHARACTER.CHARA6:
+                cure( chara6 );
                 break;
         }
     }

@@ -16,13 +16,14 @@ public class IntroButtonManager : MonoBehaviour {
 	
 	public void YesButton( ) {
         _event = _intro.getEventNum( );
-        _intro.setSelect( _intro.getSelect( ) + ( int )Mathf.Pow( 2, _event ) );
-		_intro.setEventNum( _intro.getEventNum( ) + 1 );
+        PlayerPrefs.SetInt( "Chara" + _event.ToString( ) + "Alive", 1 );
+        PlayerPrefs.Save( );
+        _intro.setEventNum( _intro.getEventNum( ) + 1 );
 		_intro.setTimerSwitch( 1 );
 	}
 
 	public void NoButton( ) {
-		_intro.setEventNum( _intro.getEventNum( ) + 1 );
+        _intro.setEventNum( _intro.getEventNum( ) + 1 );
 		_intro.setTimerSwitch( 1 );
 	}
 }
