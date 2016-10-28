@@ -122,6 +122,17 @@ public class ShipStatus : MonoBehaviour {
             return;
         }
     }
+    public void setShipBreakWithBool( bool breaken ) {
+        resources.ship_break = breaken;
+    }
+
+    public void setShipBreak( int breaken ) {
+        if ( breaken == 1 ) {
+            resources.ship_break = true;
+        } else {
+            resources.ship_break = false;
+        }
+    }
 }
 
 

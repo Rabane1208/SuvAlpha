@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 
     private GameObject inside_layer;
     private GameObject outside_layer;
+    private OutsideManager outside_manager;
     private CharacterManager character_manager;
     private EventManager event_manager;
     private ShipStatus ship_status;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour {
     void Awake( ) {
         inside_layer = GameObject.Find( "InsideLayer" ).gameObject;
         outside_layer = GameObject.Find( "OutsideLayer" ).gameObject;
+        outside_manager = GameObject.Find( "OutsideSystem" ).gameObject.GetComponent<OutsideManager>( );
         character_manager = GameObject.Find( "Characters" ).gameObject.GetComponent<CharacterManager>( );
         event_manager = GameObject.Find( "EventSystem" ).gameObject.GetComponent<EventManager>( );
         ship_status = GameObject.Find( "ShipStatus" ).gameObject.GetComponent<ShipStatus>( );
@@ -61,13 +63,7 @@ public class GameManager : MonoBehaviour {
         int mint = ( int )time % 60;
         watch.GetComponent<Text>( ).text = days.ToString( ) + " Days  " 
             + hour.ToString( "00" ) + " : " + mint.ToString( "00" ) 
-            + "  " + PlayerPrefs.GetInt( "Select" ).ToString( )
-            + "  " + PlayerPrefs.GetInt( "Chara1Alive" ).ToString( )
-            + PlayerPrefs.GetInt( "Chara2Alive" ).ToString( )
-            + PlayerPrefs.GetInt( "Chara3Alive" ).ToString( )
-            + PlayerPrefs.GetInt( "Chara4Alive" ).ToString( )
-            + PlayerPrefs.GetInt( "Chara5Alive" ).ToString( )
-            + PlayerPrefs.GetInt( "Chara6Alive" ).ToString( );
+            + "  " + PlayerPrefs.GetInt( "Select" ).ToString( );
     }
 
     public int randEvent( ) {
@@ -128,6 +124,7 @@ public class GameManager : MonoBehaviour {
         character_manager.nextDay( );
         dataSave( );
         rand_event = Random.Range( 0, ( int )event_manager.getMaxData( ) );
+        outside_manager.yesClieked( false );
     }
     
     public void dataSave( ) {

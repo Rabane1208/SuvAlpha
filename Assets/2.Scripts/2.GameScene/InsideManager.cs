@@ -22,11 +22,11 @@ public class InsideManager : MonoBehaviour {
     private Status chara6;
 
     // Use this for initialization
-    void Start( ) {
+    void Awake( ) {
         menus = GameObject.Find( "InsideMenus" ).gameObject;
         ship_status = GameObject.Find( "ShipStatus" ).gameObject.GetComponent<ShipStatus>( );
         inside_system = GameObject.Find( "InsideSystem" ).gameObject;
-        
+
         inside_chara1 = GameObject.Find( "Chara1" ).gameObject;
         inside_chara2 = GameObject.Find( "Chara2" ).gameObject;
         inside_chara3 = GameObject.Find( "Chara3" ).gameObject;
@@ -70,28 +70,38 @@ public class InsideManager : MonoBehaviour {
         return true;
     }
 
-    public void CharacterClickEvent( ) {
-        Vector3 menus_pos = menus.transform.position;
-        menus_pos.x = transform.position.x;
-        menus.transform.position = menus_pos;
+    void activeMenus( ) {
+        if ( menus.activeSelf ) {
+            menus.SetActive( false );
+        } else {
+            menus.SetActive( true );
+        }
+    }
 
+    public void CharacterClickEvent( ) {
         InsideManager inside_manager = inside_system.GetComponent<InsideManager>( );
         if ( gameObject.name == "Chara1" ) {
+            menus.transform.position = chara1.getMenuPos( );
             inside_manager.setMenu( CHARACTER.CHARA1 );
         }
         if ( gameObject.name == "Chara2" ) {
+            menus.transform.position = chara2.getMenuPos( );
             inside_manager.setMenu( CHARACTER.CHARA2 );
         }
         if ( gameObject.name == "Chara3" ) {
+            menus.transform.position = chara3.getMenuPos( );
             inside_manager.setMenu( CHARACTER.CHARA3 );
         }
         if ( gameObject.name == "Chara4" ) {
+            menus.transform.position = chara4.getMenuPos( );
             inside_manager.setMenu( CHARACTER.CHARA4 );
         }
         if ( gameObject.name == "Chara5" ) {
+            menus.transform.position = chara5.getMenuPos( );
             inside_manager.setMenu( CHARACTER.CHARA5 );
         }
         if ( gameObject.name == "Chara6" ) {
+            menus.transform.position = chara6.getMenuPos( );
             inside_manager.setMenu( CHARACTER.CHARA6 );
         }
     }
@@ -153,6 +163,8 @@ public class InsideManager : MonoBehaviour {
         chara4.setPlace( LAYER.INSIDE );
         chara5.setPlace( LAYER.INSIDE );
         chara6.setPlace( LAYER.INSIDE );
+
+        menus.transform.position = new Vector3( 1600.0f, 0.0f, 0.0f );
 
         InsideManager inside_manager = inside_system.GetComponent<InsideManager>( );
         switch ( inside_manager.getMenu( ) ) {

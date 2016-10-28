@@ -55,20 +55,7 @@ public class CharacterManager : MonoBehaviour {
     public int DECREASE_LOYALTY_DISSATISFACTION;
 
     void Awake( ) {
-        DECREASE_FOODS_HEALTHY = 1;
-        DECREASE_WATER_HEALTHY = 1;
-        DECREASE_WATER_SICK = 1;
-        DECREASE_HEALTH_HUNGER = 2;
-        DECREASE_HEALTH_SICK = 1;
-        DECREASE_LOYALTY_SICK = 1;
-        DECREASE_LOYALTY_DISSATISFACTION = 2;
-
-        INCREASE_HEALTH = 1;
-        INCREASE_LOYALTY = 1;
-
         FULL_HEALTH = 10;
-        SATISFACTION_VALUE = 5;
-        DISSATISFACTION_VALUE = 2;
 
 		chara1 = GameObject.Find( "Chara1" ).GetComponent<Status>( );
 		chara2 = GameObject.Find( "Chara2" ).GetComponent<Status>( );
@@ -80,6 +67,31 @@ public class CharacterManager : MonoBehaviour {
 	
 	void Update( ) {
         AliveCharacters( );
+        isAllGood( chara6 );
+    }
+
+    void isAllGood( Status character ) {
+        if ( character.getStatus( ).death ) {
+            character.setFace( STATE.DEATH );
+            return;
+        }
+        if ( character.getStatus( ).foods <= 0 ) {
+            character.setFace( STATE.HUNGRY );
+            return;
+        }
+        if ( character.getStatus( ).water <= 0 ) {
+            character.setFace( STATE.THIRSTY );
+            return;
+        }
+        if ( character.getStatus( ).disease ) {
+            character.setFace( STATE.SICK );
+            return;
+        }
+        if ( character.getStatus( ).loyalty <= 0 ) {
+            character.setFace( STATE.DEFIANCE );
+            return;
+        }
+        chara6.setFace( STATE.NORMAL );
     }
 
     public void setNewGame( ) {

@@ -21,6 +21,8 @@ public enum EVENTDATA {
 	LOYALTY,
 	DEATH,
 	DISEASE,
+    ACTIVE,
+    NEED,
     MAX,
 }
 
@@ -90,6 +92,10 @@ public class EventManager : MonoBehaviour {
                 return data[ i ][ "Death" ];
 		    case EVENTDATA.DISEASE:
                 return data[ i ][ "Disease" ];
+            case EVENTDATA.ACTIVE:
+                return data [ i ] [ "Active" ];
+            case EVENTDATA.NEED:
+                return data [ i ] [ "Need" ];
             case EVENTDATA.MAX:
                 return data.Count;
 		}

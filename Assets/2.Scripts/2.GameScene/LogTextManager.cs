@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class LogTextManager : MonoBehaviour {
     private ShipStatus ship_status;
     private GameObject log;
-	private CharacterManager character_manager;
+    private OutsideManager outside_manager;
+    private CharacterManager character_manager;
     private GameManager game_manager;
     private EventManager event_manager;
 
@@ -15,30 +16,31 @@ public class LogTextManager : MonoBehaviour {
         ship_status = GameObject.Find( "ShipStatus" ).gameObject.GetComponent<ShipStatus>( );
         log = GameObject.Find( "Log" ).gameObject;
         character_manager = GameObject.Find( "Characters" ).gameObject.GetComponent<CharacterManager>( );
-		game_manager = GameObject.Find( "GameSystem" ).gameObject.GetComponent<GameManager>( );
+        game_manager = GameObject.Find( "GameSystem" ).gameObject.GetComponent<GameManager>( );
         event_manager = GameObject.Find( "EventSystem" ).gameObject.GetComponent<EventManager>( );
+        outside_manager = GameObject.Find( "OutsideSystem" ).gameObject.GetComponent<OutsideManager>( );
     }
-	
-	// Update is called once per frame
-	void Update( ) {
+
+    // Update is called once per frame
+    void Update( ) {
         int log_page = log.GetComponent<LogManager>( ).getLogPage( );
         if ( gameObject.name == "LeftPage" ) {
             if ( log_page == 1 ) {
                 gameObject.GetComponent<Text>( ).text = "Story";
             }
             if ( log_page == 2 ) {
-				gameObject.GetComponent<Text> ().text = 
-				  "Fuels          : " + ship_status.getResources( ).fuels.ToString () + "\n"
-				+ "Foods          : " + ship_status.getResources( ).foods.ToString () + "\n"
-				+ "Water          : " + ship_status.getResources( ).water.ToString () + "\n"
-				+ "Medical Kits   : " + ship_status.getResources( ).medical_kits.ToString () + "\n"
-				+ "Repair Tools   : " + ship_status.getResources( ).repair_tools.ToString () + "\n"
-				+ "Radios         : " + ship_status.getResources( ).radios.ToString () + "\n";
+                gameObject.GetComponent<Text>( ).text =
+                  "Fuels          : " + ship_status.getResources( ).fuels.ToString( ) + "\n"
+                + "Foods          : " + ship_status.getResources( ).foods.ToString( ) + "\n"
+                + "Water          : " + ship_status.getResources( ).water.ToString( ) + "\n"
+                + "Medical Kits   : " + ship_status.getResources( ).medical_kits.ToString( ) + "\n"
+                + "Repair Tools   : " + ship_status.getResources( ).repair_tools.ToString( ) + "\n"
+                + "Radios         : " + ship_status.getResources( ).radios.ToString( ) + "\n";
             }
         }
         if ( gameObject.name == "RightPage" ) {
             if ( log_page == 1 ) {
-                gameObject.GetComponent<Text>( ).text = ( string )event_manager.getData( game_manager.randEvent( ), EVENTDATA.STORY );
+                gameObject.GetComponent<Text>( ).text = writeRightPage( );
             }
             if ( log_page == 2 ) {
                 Status chara1 = character_manager.getCharacter( CHARACTER.CHARA1 );
@@ -55,6 +57,32 @@ public class LogTextManager : MonoBehaviour {
                                                       + writeStatus( chara5 )
                                                       + writeStatus( chara6 );
             }
+        }
+        
+        
+        if ( gameObject.name == "RightDownPage" ) {
+            if ( log_page == 1 ) {
+                if ( !outside_manager.isYesClicked( ) ) {
+                    gameObject.GetComponent<Text>( ).text = "";
+                    return;
+                }
+                gameObject.GetComponent<Text>( ).text = ( string )event_manager.getData( game_manager.randEvent( ), EVENTDATA.STORY );
+            }
+            if ( log_page == 2 ) {
+                gameObject.GetComponent<Text>( ).text = "";
+            }
+        }
+    }
+
+    string writeRightPage( ) {
+        string article = event_manager.getData( game_manager.randEvent( ), EVENTDATA.ARTICLE ).ToString( );
+        switch ( article ) {
+            case "Island":
+                return "島が発見されました。";
+            case "Ship":
+                return "船が発見されました。";
+            default:
+                return "何も見つけませんでした。";
         }
     }
 

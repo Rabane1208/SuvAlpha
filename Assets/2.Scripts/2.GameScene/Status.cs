@@ -1,13 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum STATE {
+    NORMAL,
+    SICK,
+    HUNGRY,
+    THIRSTY,
+    DEFIANCE,
+    DEATH,
+}
+
 public class Status : MonoBehaviour {
     private STATUS character;
+    private STATE _state;
 
     public int StartFoods;
     public int StartWater;
     public int StartHealth;
     public int StartLoyalty;
+
+    public float CharaMenuPosX;
+    public float CharaMenuPosY;
 
     public void setNew( ) {
         PlayerPrefs.SetInt( gameObject.name + "Foods", StartFoods );
@@ -54,6 +67,16 @@ public class Status : MonoBehaviour {
         PlayerPrefs.Save( );
     }
 
+    public void setFace( STATE state ) {
+        _state = state;
+    }
+    public  STATE getState( ) {
+        return _state;
+    }
+
+    public Vector3 getMenuPos( ) {
+        return new Vector3( CharaMenuPosX, CharaMenuPosY, 0 );
+    }
     public STATUS getStatus( ) { return character; }
     public void setPlace( LAYER place ) { character.place = place; }
     public void setFoods( int foods ) { character.foods = foods; }
@@ -62,4 +85,19 @@ public class Status : MonoBehaviour {
     public void setLoyalty( int loyalty ) { character.loyalty = loyalty; }
     public void setDeath( bool death ) { character.death = death; }
     public void setDisease( bool disease ) { character.disease = disease; }
+    public void setDeath( int death ) {
+        if ( death == 1 ) {
+            character.death = true;
+        } else {
+            character.death = false;
+        }
+    }
+    public void setDisease( int disease ) {
+        if ( disease == 1 ) {
+            character.disease = true;
+        } else {
+            character.disease = false;
+        }
+    }
+
 }
